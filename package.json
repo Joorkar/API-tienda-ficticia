@@ -1,7 +1,7 @@
 {
   "name": "my-store",
   "version": "1.0.0",
-  "description": "",
+  "description": "API de una tienda online ficticia",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
