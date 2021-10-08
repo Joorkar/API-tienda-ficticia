@@ -18,38 +18,28 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
   const body = req.body;
-  res.status(201).json({
-    message: 'Created',
-    data: body,
-  });
+  const newCategory = service.create(body);
+  res.status(201).json(newCategory);
 });
 
 router.patch('/:id', (req, res) => {
   const { id } = req.params;
   const body = req.body;
-  res.status(201).json({
-    message: 'Update partial',
-    data: body,
-    id,
-  });
+  const category = service.update(id, body);
+  res.status(201).json(category);
 });
 
 router.put('/:id', (req, res) => {
   const { id } = req.params;
   const body = req.body;
-  res.status(201).json({
-    message: 'Update general',
-    data: body,
-    id,
-  });
+  const category = service.update(id, body);
+  res.status(201).json(category);
 });
 
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
-  res.status(200).json({
-    message: 'Deleted',
-    id,
-  });
+  const rta = service.delete(id);
+  res.status(200).json(rta);
 });
 
 module.exports = router;

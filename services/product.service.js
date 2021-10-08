@@ -18,19 +18,50 @@ class ProductServices {
     }
   }
 
-  create() {}
-
-  find() {
-    return this.products;
+  async create(data) {
+    const newProduct = {
+      id: faker.datatype.uuid(),
+      ...data,
+    };
+    this.products.push(newProduct);
+    return newProduct;
   }
 
-  findOne(id) {
+  find() {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(this.products);
+      }, 5000);
+    });
+    // return this.products;
+  }
+
+  async findOne(id) {
+    const name = this.getTotal();
     return this.products.find((item) => item.id === id);
   }
 
-  update() {}
+  async update(id, changes) {
+    const index = this.products.findIndex((item) => item.id === id);
+    if (index === -1) {
+      throw new Error('Product not found');
+    }
+    const product = this.products[index];
+    this.products[index] = {
+      ...product,
+      ...changes,
+    };
+    return this.products[index];
+  }
 
-  delete() {}
+  async delete(id) {
+    const index = this.products.findIndex((item) => item.id === id);
+    if (index === -1) {
+      throw new Error('Product not found');
+    }
+    this.products.splice(index, 1);
+    return { id };
+  }
 }
 
 module.exports = ProductServices;
